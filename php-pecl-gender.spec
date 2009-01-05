@@ -10,10 +10,11 @@ Group:		Development/Languages/PHP
 Source0:	http://pecl.php.net/get/%{_modname}-%{version}.tgz
 # Source0-md5:	0641eebf38dfe6d4d83a879189230658
 URL:		http://pecl.php.net/package/gender/
-BuildRequires:	php-devel >= 3:5.0.0
+BuildRequires:	php-devel >= 3:5.2.0
 BuildRequires:	rpmbuild(macros) >= 1.344
 %{?requires_php_extension}
-Requires:	php-common >= 4:5.0.4
+Requires:	php-common >= 4:5.2.0
+Suggests:	php-bzip2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -43,13 +44,13 @@ phpize
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{php_sysconfdir}/conf.d,%{php_pear_dir}/data/gender/data}
+install -d $RPM_BUILD_ROOT{%{php_sysconfdir}/conf.d,%{php_pear_dir}/data/gender}
 
 %{__make} install \
 	INSTALL_ROOT=$RPM_BUILD_ROOT \
 	EXTENSION_DIR=%{php_extensiondir}
 
-install data/nam_dict.txt.bz2 $RPM_BUILD_ROOT%{php_pear_dir}/data/gender/data
+install data/nam_dict.txt.bz2 $RPM_BUILD_ROOT%{php_pear_dir}/data/gender
 
 cat <<'EOF' > $RPM_BUILD_ROOT%{php_sysconfdir}/conf.d/%{_modname}.ini
 ; Enable %{_modname} extension module
