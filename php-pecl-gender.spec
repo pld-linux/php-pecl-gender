@@ -3,12 +3,12 @@
 Summary:	%{_modname} - determine gender for a given name
 Summary(pl.UTF-8):	%{_modname} - określenie płci dla podanego imienia
 Name:		php-pecl-%{_modname}
-Version:	0.6.1
+Version:	0.7.0
 Release:	1
 License:	PHP
 Group:		Development/Languages/PHP
 Source0:	http://pecl.php.net/get/%{_modname}-%{version}.tgz
-# Source0-md5:	0641eebf38dfe6d4d83a879189230658
+# Source0-md5:	ac54fe38f3ae6c67f55e84b81354403e
 URL:		http://pecl.php.net/package/gender/
 BuildRequires:	php-devel >= 3:5.2.0
 BuildRequires:	rpmbuild(macros) >= 1.344
