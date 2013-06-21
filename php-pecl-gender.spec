@@ -1,19 +1,20 @@
-%define		_modname	gender
-%define		_status		stable
-Summary:	%{_modname} - determine gender for a given name
-Summary(pl.UTF-8):	%{_modname} - określenie płci dla podanego imienia
-Name:		php-pecl-%{_modname}
+%define		php_name	php%{?php_suffix}
+%define		modname	gender
+%define		status		stable
+Summary:	%{modname} - determine gender for a given name
+Summary(pl.UTF-8):	%{modname} - określenie płci dla podanego imienia
+Name:		%{php_name}-pecl-%{modname}
 Version:	0.7.0
 Release:	1
 License:	PHP
 Group:		Development/Languages/PHP
-Source0:	http://pecl.php.net/get/%{_modname}-%{version}.tgz
+Source0:	http://pecl.php.net/get/%{modname}-%{version}.tgz
 # Source0-md5:	ac54fe38f3ae6c67f55e84b81354403e
 URL:		http://pecl.php.net/package/gender/
-BuildRequires:	php-devel >= 3:5.2.0
-BuildRequires:	rpmbuild(macros) >= 1.344
+BuildRequires:	%{php_name}-devel >= 3:5.2.0
+BuildRequires:	rpmbuild(macros) >= 1.650
 %{?requires_php_extension}
-Requires:	php-common >= 4:5.2.0
+Requires:	php(core) >= 5.2.0
 Suggests:	php-bzip2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -23,7 +24,7 @@ written by Joerg Michael. The main purpose is to find out the gender
 of first names. The actual database contains >40000 first names from
 54 countries.
 
-In PECL status of this extension is: %{_status}.
+In PECL status of this extension is: %{status}.
 
 %description -l pl.UTF-8
 Rozszerzenie gender to port programu gender.c, autorem którego jest
@@ -31,11 +32,11 @@ Joerg Michael. Celem programu jest określenie płci na podstawie
 podanych imion. Aktualna baza danych zawiera ponad 40000 imion z ponad
 54 krajów.
 
-To rozszerzenie ma w PECL status: %{_status}.
+To rozszerzenie ma w PECL status: %{status}.
 
 %prep
 %setup -q -c
-mv %{_modname}-%{version}/* .
+mv %{modname}-%{version}/* .
 
 %build
 phpize
@@ -52,9 +53,9 @@ install -d $RPM_BUILD_ROOT{%{php_sysconfdir}/conf.d,%{php_pear_dir}/data/gender}
 
 install data/nam_dict.txt.bz2 $RPM_BUILD_ROOT%{php_pear_dir}/data/gender
 
-cat <<'EOF' > $RPM_BUILD_ROOT%{php_sysconfdir}/conf.d/%{_modname}.ini
-; Enable %{_modname} extension module
-extension=%{_modname}.so
+cat <<'EOF' > $RPM_BUILD_ROOT%{php_sysconfdir}/conf.d/%{modname}.ini
+; Enable %{modname} extension module
+extension=%{modname}.so
 EOF
 
 %clean
@@ -71,6 +72,6 @@ fi
 %files
 %defattr(644,root,root,755)
 %doc CREDITS EXPERIMENTAL README
-%config(noreplace) %verify(not md5 mtime size) %{php_sysconfdir}/conf.d/%{_modname}.ini
-%attr(755,root,root) %{php_extensiondir}/%{_modname}.so
+%config(noreplace) %verify(not md5 mtime size) %{php_sysconfdir}/conf.d/%{modname}.ini
+%attr(755,root,root) %{php_extensiondir}/%{modname}.so
 %{php_pear_dir}/data/gender
