@@ -5,7 +5,7 @@ Summary:	%{modname} - determine gender for a given name
 Summary(pl.UTF-8):	%{modname} - określenie płci dla podanego imienia
 Name:		%{php_name}-pecl-%{modname}
 Version:	0.7.0
-Release:	1
+Release:	2
 License:	PHP
 Group:		Development/Languages/PHP
 Source0:	http://pecl.php.net/get/%{modname}-%{version}.tgz
@@ -16,6 +16,7 @@ BuildRequires:	rpmbuild(macros) >= 1.650
 %{?requires_php_extension}
 Requires:	php(core) >= 5.2.0
 Suggests:	php-bzip2
+Provides:	php(%{modname}) = %{version}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -51,7 +52,7 @@ install -d $RPM_BUILD_ROOT{%{php_sysconfdir}/conf.d,%{php_pear_dir}/data/gender}
 	INSTALL_ROOT=$RPM_BUILD_ROOT \
 	EXTENSION_DIR=%{php_extensiondir}
 
-install data/nam_dict.txt.bz2 $RPM_BUILD_ROOT%{php_pear_dir}/data/gender
+cp -p data/nam_dict.txt.bz2 $RPM_BUILD_ROOT%{php_pear_dir}/data/gender
 
 cat <<'EOF' > $RPM_BUILD_ROOT%{php_sysconfdir}/conf.d/%{modname}.ini
 ; Enable %{modname} extension module
